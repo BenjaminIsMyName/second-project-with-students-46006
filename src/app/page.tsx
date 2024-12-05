@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Task from './task'
 import { TaskType } from './types/task-type'
 
-const tasks: TaskType[] = [
+const INIT_STATE: TaskType[] = [
     {
         title: 'Buy cola',
         didComplete: false,
@@ -24,13 +24,18 @@ const tasks: TaskType[] = [
 
 export default function Page() {
     const [value, setValue] = useState('')
+    const [tasks, setTasks] = useState(INIT_STATE)
 
     function addTask() {
-        tasks.push({
-            title: value,
-            didComplete: false,
-            id: tasks.length + 1,
-        })
+        setTasks([
+            ...tasks,
+            {
+                title: value,
+                didComplete: false,
+                id: tasks.length + 1,
+            },
+        ])
+
         setValue('')
     }
 
@@ -43,13 +48,13 @@ export default function Page() {
 
             <div className="flex gap-3 justify-center">
                 <input
-                    onChange={e => setValue(e.target.value)} // <<<<
-                    value={value} // <<<<
+                    onChange={e => setValue(e.target.value)}
+                    value={value}
                     type="text"
                     className="border border-pink-200 p-1.5 rounded-xl"
                 />
                 <button
-                    onClick={addTask} // <<<<
+                    onClick={addTask}
                     className="bg-pink-500 p-1.5 rounded-lg"
                 >
                     Add
@@ -60,7 +65,20 @@ export default function Page() {
 
             <div className="flex gap-4 flex-col p-5">
                 {tasks.map(task => (
-                    <Task task={task} key={task.id} />
+                    <Task
+                        task={task}
+                        key={task.id}
+                        toggle={function () {
+                            // Write code to toggle didComplete for this task
+                            setTasks(
+                                tasks.map(t =>
+                                    t.id != task.id
+                                        ? t
+                                        : { ...t, didComplete: !t.didComplete }
+                                )
+                            )
+                        }}
+                    />
                 ))}
             </div>
         </div>
