@@ -78,6 +78,9 @@ export default function Page() {
                                 )
                             )
                         }}
+                        delete={function () {
+                            setTasks(tasks.filter(t => t.id != task.id))
+                        }}
                     />
                 ))}
             </div>
