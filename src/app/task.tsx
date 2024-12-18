@@ -1,6 +1,17 @@
 import { Button } from '@/components/ui/button'
 import { TaskType } from './types/task-type'
 import { Trash } from 'lucide-react'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 
 interface Props {
     task: TaskType
@@ -35,9 +46,33 @@ export default function Task(props: Props) {
                     </h2>
                 </div>
             </div>
-            <Button onClick={props.delete}>
-                <Trash />
-            </Button>
+
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                    <Button className="bg-red-500">
+                        <Trash />
+                    </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-gradient-to-t from-red-800 to-black">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle className="text-white">
+                            Are you absolutely sure?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={props.delete}
+                            className="bg-red-500"
+                        >
+                            Delete
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     )
 }

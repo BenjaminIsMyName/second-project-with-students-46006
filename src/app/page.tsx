@@ -3,36 +3,26 @@
 import { useState } from 'react'
 import Task from './task'
 import { TaskType } from './types/task-type'
+import { CoolCard } from './cool-card'
 
 const INIT_STATE: TaskType[] = [
-    {
-        title: 'Buy cola',
-        didComplete: false,
-        id: 1,
-    },
-    {
-        title: 'Go to school',
-        didComplete: true,
-        id: 2,
-    },
-    {
-        title: 'Do homework',
-        didComplete: false,
-        id: 3,
-    },
+    // למחוק את המשימות שהיו פה
 ]
 
 export default function Page() {
     const [value, setValue] = useState('')
     const [tasks, setTasks] = useState(INIT_STATE)
+    const [count, setCount] = useState(0) // להוסיף את השורה הזאת
 
     function addTask() {
+        setCount(count + 1) // וגם את השורה הזאת
+
         setTasks([
             ...tasks,
             {
                 title: value,
                 didComplete: false,
-                id: tasks.length + 1,
+                id: count, // ולתקן את השורה כאן
             },
         ])
 
@@ -43,7 +33,7 @@ export default function Page() {
         <div>
             <br />
             <h1 className="text-center">Task Manager</h1>
-
+            <h2 className="text-center">Tasks created: {count} </h2>
             <br />
 
             <div className="flex gap-3 justify-center">
@@ -84,6 +74,8 @@ export default function Page() {
                     />
                 ))}
             </div>
+
+            <CoolCard />
         </div>
     )
 }
