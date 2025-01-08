@@ -4,6 +4,14 @@ import { useState } from 'react'
 import Task from './task'
 import { TaskType } from './types/task-type'
 import { CoolCard } from './cool-card'
+import {
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from '@/components/ui/drawer'
 
 const INIT_STATE: TaskType[] = [
     // למחוק את המשימות שהיו פה
@@ -31,6 +39,20 @@ export default function Page() {
 
     return (
         <div>
+            <Drawer>
+                <DrawerTrigger className="bg-slate-300 p-4 fixed left-2 top-2 rounded-lg">
+                    Open
+                </DrawerTrigger>
+                <DrawerContent>
+                    <DrawerHeader>
+                        <DrawerTitle>חג שמח</DrawerTitle>
+                        <DrawerDescription>
+                            נתראה בשיעור הבא אחרי חנוכה
+                        </DrawerDescription>
+                    </DrawerHeader>
+                </DrawerContent>
+            </Drawer>
+
             <br />
             <h1 className="text-center">Task Manager</h1>
             <h2 className="text-center">Tasks created: {count} </h2>
