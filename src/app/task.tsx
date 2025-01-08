@@ -12,7 +12,8 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-
+import { FaBeer, FaCoffee } from 'react-icons/fa'
+import { formatDistanceToNow } from 'date-fns'
 interface Props {
     task: TaskType
     toggle: () => void
@@ -26,7 +27,14 @@ export default function Task(props: Props) {
             className="bg-green-300 rounded-lg p-2 flex justify-between items-center"
         >
             <div>
-                <h1>{props.task.title}</h1>
+                <h1>
+                    <FaBeer />
+                    <FaCoffee />
+
+                    {props.task.title}
+                </h1>
+
+                <p>{formatDistanceToNow(props.task.createdAt)}</p>
 
                 <div className="flex gap-2">
                     <input

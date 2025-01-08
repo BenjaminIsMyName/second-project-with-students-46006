@@ -12,6 +12,8 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from '@/components/ui/drawer'
+import { FaPlus } from 'react-icons/fa'
+import { Bounce, ToastContainer, toast } from 'react-toastify'
 
 const INIT_STATE: TaskType[] = [
     // למחוק את המשימות שהיו פה
@@ -30,15 +32,41 @@ export default function Page() {
             {
                 title: value,
                 didComplete: false,
-                id: count, // ולתקן את השורה כאן
+                id: count,
+                createdAt: new Date(),
             },
         ])
 
         setValue('')
+
+        toast.success('New task added', {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'dark',
+            transition: Bounce,
+        })
     }
 
     return (
         <div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={Bounce}
+            />
             <Drawer>
                 <DrawerTrigger className="bg-slate-300 p-4 fixed left-2 top-2 rounded-lg">
                     Open
@@ -69,7 +97,7 @@ export default function Page() {
                     onClick={addTask}
                     className="bg-pink-500 p-1.5 rounded-lg"
                 >
-                    Add
+                    <FaPlus />
                 </button>
             </div>
 
